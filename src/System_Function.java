@@ -54,7 +54,7 @@ public class System_Function
         Connection cn=null;
 
         Statement stmt = null;
-        String query = "SELECT * FROM Profiles WHERE Name='"+getCurrentProfile()+"'";
+        String query = "SELECT * FROM profiles WHERE Name='"+getCurrentProfile()+"'";
         try
         {
             Class.forName("com.mysql.jdbc.Driver");

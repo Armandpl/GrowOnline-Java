@@ -15,7 +15,7 @@ public class Environnement
       Debug.println("LANCEMENT DU THREAD D ECRITURE DE LA TEMPERATURE ET DE L HUMIDITE");
                   new Thread() { public void run()
                   {
-                      int frequency = 30000;//le temps entre chaque tick
+                      int frequency = 5000;//le temps entre chaque tick
                       long lastExec=0;//dernier éxécution de la fonction
                       while(true)
                       {
