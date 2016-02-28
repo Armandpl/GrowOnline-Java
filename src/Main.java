@@ -37,7 +37,7 @@ public class Main
 
     public static void tick()//fonction qui gèrera tout et qui sera éxécutée toute les x secondes
     {
-        //Debug.println("RECUPERATION DU PROFIL//////////////////////");
+        Debug.println("RECUPERATION DU PROFIL//////////////////////");
         System_Function.getProfile();
         if(Profile.Name.equals("")||Profile.Name==null)
         {

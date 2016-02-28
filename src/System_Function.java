@@ -18,7 +18,7 @@ public class System_Function
 {
     public static String getCurrentProfile()
     {
-        String url = "jdbc:mysql://localhost/GrowOnline";
+        String url = "jdbc:mysql://localhost/growonline";
         String login = credentials.bdd_login;
         String passwd = credentials.bdd_psswd;
         Connection cn=null;
@@ -48,7 +48,7 @@ public class System_Function
     }
     public static void getProfile()
     {
-        String url = "jdbc:mysql://localhost/GrowOnline";
+        String url = "jdbc:mysql://localhost/growonline";
         String login = credentials.bdd_login;
         String passwd = credentials.bdd_psswd;
         Connection cn=null;
