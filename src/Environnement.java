@@ -47,7 +47,7 @@ public class Environnement
           Class.forName("com.mysql.jdbc.Driver");
           cn= DriverManager.getConnection(url,login,passwd);
           st=cn.createStatement();
-          String sql = "INSERT INTO `growonline`.`Env` (`Date_`, `Temp`, `Hum`) VALUES ('"+System_Function.getDATETIME()+"', '"+result[0]+"', '"+result[1]+"');";
+          String sql = "INSERT INTO `growonline`.`env` (`date_`, `temp`, `hum`) VALUES ('"+System_Function.getDATETIME()+"', '"+result[0]+"', '"+result[1]+"');";
           st.execute(sql);
       } catch (SQLException e) {
           e.printStackTrace();
