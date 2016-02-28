@@ -29,7 +29,7 @@ public class Environnement
   }
   public static void writeTempHum()//fonction pour écrire la température et l'humidité dans la DB
   {
-      String url = "jdbc:mysql://localhost/AutoGrow";
+      String url = "jdbc:mysql://localhost/GrowOnline";
       String login = credentials.bdd_login;
       String passwd = credentials.bdd_psswd;
       Connection cn=null;
@@ -47,7 +47,7 @@ public class Environnement
           Class.forName("com.mysql.jdbc.Driver");
           cn= DriverManager.getConnection(url,login,passwd);
           st=cn.createStatement();
-          String sql = "INSERT INTO `AutoGrow`.`Env` (`Date_`, `Temp`, `Hum`) VALUES ('"+System_Function.getDATETIME()+"', '"+result[0]+"', '"+result[1]+"');";
+          String sql = "INSERT INTO `GrowOnline`.`Env` (`Date_`, `Temp`, `Hum`) VALUES ('"+System_Function.getDATETIME()+"', '"+result[0]+"', '"+result[1]+"');";
           st.execute(sql);
       } catch (SQLException e) {
           e.printStackTrace();
