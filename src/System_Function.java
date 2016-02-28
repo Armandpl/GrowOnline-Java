@@ -24,7 +24,7 @@ public class System_Function
         Connection cn=null;
 
         Statement stmt = null;
-        String query = "SELECT Name FROM Profile WHERE ID='0';";
+        String query = "SELECT Name FROM profile WHERE ID='0';";
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
