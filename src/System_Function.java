@@ -1,11 +1,5 @@
-import sun.java2d.pipe.SpanShapeRenderer;
-
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.*;
 import java.text.ParseException;
@@ -63,24 +57,24 @@ public class System_Function
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next())
             {
-                Profile.Name = rs.getString("Name");
-                Profile.Sunrise = rs.getTime("Sunrise");
-                Profile.Sunset = rs.getTime("Sunset");
-                Profile.Interval = rs.getTime("Interval");
-                Profile.Working_Time = rs.getTime("Working_Time");
-                Profile.Tank_Capacity = rs.getDouble("Tank_Capacity");
-                Profile.Pump_Flow = rs.getDouble("Pump_Flow");
-                Profile.Watering_Hour = rs.getTime("Watering_Hour");
-                Profile.Water_Amount = rs.getDouble("Water_Amount");
-                Profile.Temperature = rs.getDouble("Temperature");
-                Profile.Humidity = rs.getDouble("Humidity");
-                Profile.Water_Days[0]= rs.getInt("Monday") == 1;
-                Profile.Water_Days[1]= rs.getInt("Tuesday") == 1;
-                Profile.Water_Days[2]= rs.getInt("Wednesday") == 1;
-                Profile.Water_Days[3]= rs.getInt("Thursday") == 1;
-                Profile.Water_Days[4]= rs.getInt("Friday") == 1;
-                Profile.Water_Days[5]= rs.getInt("Saturday") == 1;
-                Profile.Water_Days[6]= rs.getInt("Sunday") == 1;
+                Status.Name = rs.getString("Name");
+                Status.Sunrise = rs.getTime("Sunrise");
+                Status.Sunset = rs.getTime("Sunset");
+                Status.Interval = rs.getTime("Interval");
+                Status.Working_Time = rs.getTime("Working_Time");
+                Status.Tank_Capacity = rs.getDouble("Tank_Capacity");
+                Status.Pump_Flow = rs.getDouble("Pump_Flow");
+                Status.Watering_Hour = rs.getTime("Watering_Hour");
+                Status.Water_Amount = rs.getDouble("Water_Amount");
+                Status.Temperature = rs.getDouble("Temperature");
+                Status.Humidity = rs.getDouble("Humidity");
+                Status.Water_Days[0]= rs.getInt("Monday") == 1;
+                Status.Water_Days[1]= rs.getInt("Tuesday") == 1;
+                Status.Water_Days[2]= rs.getInt("Wednesday") == 1;
+                Status.Water_Days[3]= rs.getInt("Thursday") == 1;
+                Status.Water_Days[4]= rs.getInt("Friday") == 1;
+                Status.Water_Days[5]= rs.getInt("Saturday") == 1;
+                Status.Water_Days[6]= rs.getInt("Sunday") == 1;
             }
         } catch (SQLException e ) {e.printStackTrace();}
         catch (ClassNotFoundException e) {e.printStackTrace();}
@@ -98,8 +92,8 @@ public class System_Function
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         try {now = format.parse(format.format(now));} catch (ParseException e) {e.printStackTrace();}//on récupère uniquement les heures et les minutes
-        if(Profile.Sunrise==Profile.Sunset){return false;}
-        return now.after(Profile.Sunrise)&&now.before(Profile.Sunset);
+        if(Status.Sunrise== Status.Sunset){return false;}
+        return now.after(Status.Sunrise)&&now.before(Status.Sunset);
     }
 
     public static boolean isWaterDay()
@@ -108,13 +102,13 @@ public class System_Function
         calendar.setTime(new Date());
         int today = calendar.get(calendar.DAY_OF_WEEK);
 
-        if(today==GregorianCalendar.MONDAY&&Profile.Water_Days[0]){return true;}
-        else if(today==GregorianCalendar.TUESDAY&&Profile.Water_Days[1]){return true;}
-        else if(today==GregorianCalendar.WEDNESDAY&&Profile.Water_Days[2]){return true;}
-        else if(today==GregorianCalendar.THURSDAY&&Profile.Water_Days[3]){return true;}
-        else if(today==GregorianCalendar.FRIDAY&&Profile.Water_Days[4]){return true;}
-        else if(today==GregorianCalendar.SATURDAY&&Profile.Water_Days[5]){return true;}
-        else if(today==GregorianCalendar.SUNDAY&&Profile.Water_Days[6]){return true;}
+        if(today==GregorianCalendar.MONDAY&& Status.Water_Days[0]){return true;}
+        else if(today==GregorianCalendar.TUESDAY&& Status.Water_Days[1]){return true;}
+        else if(today==GregorianCalendar.WEDNESDAY&& Status.Water_Days[2]){return true;}
+        else if(today==GregorianCalendar.THURSDAY&& Status.Water_Days[3]){return true;}
+        else if(today==GregorianCalendar.FRIDAY&& Status.Water_Days[4]){return true;}
+        else if(today==GregorianCalendar.SATURDAY&& Status.Water_Days[5]){return true;}
+        else if(today==GregorianCalendar.SUNDAY&& Status.Water_Days[6]){return true;}
         return false;
 
     }
@@ -125,11 +119,11 @@ public class System_Function
         ArrayList<Date> OFF = new ArrayList<Date>();
 
         SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
-        String[] s = formater.format(Profile.Interval).split(":");
+        String[] s = formater.format(Status.Interval).split(":");
         int Hour_I = Integer.parseInt(s[0]);
         int Min_I = Integer.parseInt(s[1]);
 
-        s = formater.format(Profile.Working_Time).split(":");
+        s = formater.format(Status.Working_Time).split(":");
         int Hour_W = Integer.parseInt(s[0]);
         int Min_W = Integer.parseInt(s[1]);
 

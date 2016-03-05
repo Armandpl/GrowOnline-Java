@@ -25,6 +25,7 @@ public class Main
         System_Function.exec("gpio mode "+var.lamp.getPin()+" out");
         System_Function.exec("gpio mode "+var.fan.getPin()+" out");
         System_Function.exec("gpio mode "+var.pump.getPin()+" out");
+        System_Function.exec("gpio mode "+var.heater.getPin()+" out");
         //System_Function.exec("gpio mode "+var.sonde+" in");//]______trucs un peut spécial avec les pins
         System_Function.exec("gpio mode 7 in");            // ]
         var.lamp.set(false);
@@ -39,7 +40,7 @@ public class Main
     {
         Debug.println("RECUPERATION DU PROFIL//////////////////////");
         System_Function.getProfile();
-        if(Profile.Name.equals("")||Profile.Name==null)
+        if(Status.Name.equals("")|| Status.Name==null)
         {
             Debug.println("PROFIL NULL : ABANDON DU TICK");
             return;
@@ -64,11 +65,20 @@ public class Main
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         try {now = format.parse(format.format(now));} catch (ParseException e) {e.printStackTrace();}//on récupère uniquement les heures et les minutes
-        if(Profile.Water_Amount!=0&&!var.pump.getState()&&System_Function.isWaterDay()&&now.after(Profile.Watering_Hour)&&now.before(new Date(Profile.Watering_Hour.getTime()+(long)(Profile.Water_Amount/Profile.Pump_Flow*60000))))
+        if(Status.Water_Amount!=0&&!var.pump.getState()&&System_Function.isWaterDay()&&now.after(Status.Watering_Hour)&&now.before(new Date(Status.Watering_Hour.getTime()+(long)(Status.Water_Amount/ Status.Pump_Flow*60000))))
         {
             Debug.println("ARROSAGE!");
             var.pump.set(true);
         }
         else {var.pump.set(false);}
+
+        /////////////////////////////////////////////////
+        //REGULATION DE LA TEMPERATURE
+        //
+        if(Status.Temperature<Status.LastTemp)
+        {
+            var.heater.set(true);
+        }
+
     }
 }

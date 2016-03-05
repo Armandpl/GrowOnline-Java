@@ -23,7 +23,7 @@ public class Environnement
                           {
                               Environnement.writeTempHum();
                               lastExec=System.currentTimeMillis();
-              }
+                          }
           }
       }}.start();
   }
@@ -38,6 +38,8 @@ public class Environnement
       String result[] = System_Function.getTempHum();
       Debug.println("Temp:"+result[0]);
       Debug.println("Hum:"+result[1]);
+      Status.LastTemp=Double.parseDouble(result[0]);
+      Status.LastHum=Double.parseDouble(result[1]);
 
       //pour pallier aux grosses erreurs de la sonde ( cf -3000 degrès... )
       if(Double.parseDouble(result[0])<-20){result[0]="0";}
