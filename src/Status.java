@@ -17,7 +17,4 @@ public class Status
     public static boolean[] Water_Days=new boolean[7];
     public static double LastTemp=0;
     public static double LastHum;
-
-
-
 }
