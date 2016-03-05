@@ -75,8 +75,9 @@ public class Main
         /////////////////////////////////////////////////
         //REGULATION DE LA TEMPERATURE
         //
-        if(Status.Temperature<Status.LastTemp)
+        if(Status.LastTemp<Status.Temperature)
         {
+            Debug.println("Température en dessous de la température souhaitée");
             var.heater.set(true);
         }
 
