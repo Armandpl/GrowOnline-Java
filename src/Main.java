@@ -80,6 +80,11 @@ public class Main
             Debug.println("Température en dessous de la température souhaitée");
             var.heater.set(true);
         }
+        if(Status.LastTemp>=Status.Temperature)
+        {
+            Debug.println("Température supérieur ou égale à la température souhaitée");
+            var.heater.set(false);
+        }
 
     }
 }
