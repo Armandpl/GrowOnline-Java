@@ -21,7 +21,14 @@ public class Main
 
     public static void Initialize()
     {
-        Debug.println("INITIALISATION////////////////////");
+        Debug.println("   _____                    ____        _ _            \n" +
+                "  / ____|                  / __ \\      | (_)           \n" +
+                " | |  __ _ __ _____      _| |  | |_ __ | |_ _ __   ___ \n" +
+                " | | |_ | '__/ _ \\ \\ /\\ / / |  | | '_ \\| | | '_ \\ / _ \\\n" +
+                " | |__| | | | (_) \\ V  V /| |__| | | | | | | | | |  __/\n" +
+                "  \\_____|_|  \\___/ \\_/\\_/  \\____/|_| |_|_|_|_| |_|\\___|\n" +
+                "                                                       ");
+        System.out.println("Initialisation des entrées/sorties");
         System_Function.exec("gpio mode "+var.lamp.getPin()+" out");
         System_Function.exec("gpio mode "+var.fan.getPin()+" out");
         System_Function.exec("gpio mode "+var.pump.getPin()+" out");
@@ -31,32 +38,31 @@ public class Main
         var.lamp.set(false);
         var.fan.set(false);
         var.pump.set(false);
-        //Debug.println("DEMARRAGE DU STREAM WEBCAM/////////////////////");
-        //System_Function.exec("./home/mjpg-streamer/mjpg_streamer -i \"./home/mjpg-streamer/input_uvc.so -n -f 15 -r 480x360 -y\" -o \"./home/mjpg-streamer/output_http.so -n -w ./www\"");//j'ai foutu ça en cron, ça fonctionne mieux
+        var.heater.set(false);
         Environnement.startThread();//on démarre l'écriture de la température et de l'humidité dans la bdd
     }
 
     public static void tick()//fonction qui gèrera tout et qui sera éxécutée toute les x secondes
     {
-        Debug.println("RECUPERATION DU PROFIL//////////////////////");
+        Debug.println("Récuperation du profil selectionné");
         System_Function.getProfile();
         if(Status.Name.equals("")|| Status.Name==null)
         {
-            Debug.println("PROFIL NULL : ABANDON DU TICK");
+            Debug.println("Aucun profil choisi, abandon du tick");
             return;
         }
         if(System_Function.isDay())//si on est le jour
         {
             //Debug.println("JOUR");
-            if(!var.lamp.getState()){var.lamp.set(true);Debug.println("ALLUMAGE DE LA LAMPE");}
-            if(!var.fan.getState()){var.fan.set(true);Debug.println("ALLUMAGE DU VENTILATEUR");}
+            if(!var.lamp.getState()){var.lamp.set(true);Debug.println("Allumage de la lampe");}
+            if(!var.fan.getState()){var.fan.set(true);Debug.println("Allumage du ventilateur");}
         }
         else//si on est la nuit
         {
             //Debug.println("NUIT");
-            if(var.lamp.getState()){var.lamp.set(false);Debug.println("EXTINCTION DE LA LAMPE");}
-            if(System_Function.isFanOn()&&!var.fan.getState()){var.fan.set(true);Debug.println("ALLUMAGE DU VENTILATEUR");}
-            else if(var.fan.getState()) {var.fan.set(false);Debug.println("EXTINCTION DU VENTILATEUR");}
+            if(var.lamp.getState()){var.lamp.set(false);Debug.println("Extinction de la lampe");}
+            if(System_Function.isFanOn()&&!var.fan.getState()){var.fan.set(true);Debug.println("Allumage du ventilateur");}
+            else if(var.fan.getState()) {var.fan.set(false);Debug.println("Extinction du ventilateur");}
         }
         /////////////////////////////////////////////////
         //ARROSAGE
@@ -67,7 +73,7 @@ public class Main
         try {now = format.parse(format.format(now));} catch (ParseException e) {e.printStackTrace();}//on récupère uniquement les heures et les minutes
         if(Status.Water_Amount!=0&&!var.pump.getState()&&System_Function.isWaterDay()&&now.after(Status.Watering_Hour)&&now.before(new Date(Status.Watering_Hour.getTime()+(long)(Status.Water_Amount/ Status.Pump_Flow*60000))))
         {
-            Debug.println("ARROSAGE!");
+            Debug.println("Arrosage en cours");
             var.pump.set(true);
         }
         else {var.pump.set(false);}
@@ -77,13 +83,13 @@ public class Main
         //
         if(Status.LastTemp<Status.Temperature)
         {
-            Debug.println("Température en dessous de la température souhaitée");
-            var.heater.set(true);
+            Debug.println("Température inférieure à la température souhaitée");
+            if(!var.heater.getState()){var.heater.set(true);Debug.println("Allumage de la résistance chauffante");}
         }
         if(Status.LastTemp>=Status.Temperature)
         {
-            Debug.println("Température supérieur ou égale à la température souhaitée");
-            var.heater.set(false);
+            Debug.println("Température supérieure ou égale à la température souhaitée");
+            if(var.heater.getState()){var.heater.set(false);Debug.println("Extinction de la résistance chauffante");}
         }
 
     }

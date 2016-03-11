@@ -7,6 +7,6 @@ public class Debug {
     {
         SimpleDateFormat formater = new SimpleDateFormat("HH:mm:ss");
         Date now = new Date();
-        if(debug){System.out.println("["+formater.format(now)+"]"+str);}
+        if(debug){System.out.println("["+formater.format(now)+"] "+str);}
     }
 }
