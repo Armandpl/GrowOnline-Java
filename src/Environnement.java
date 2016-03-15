@@ -36,6 +36,7 @@ public class Environnement
       Statement st=null;
 
       String result[] = System_Function.getTempHum();
+      if(result[0].equals("error")){return;}
       Debug.println("Upload de la température et de l'humidité dans la BDD");
       Debug.println("Temp:"+result[0]);
       Debug.println("Hum:"+result[1]);

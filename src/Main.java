@@ -21,14 +21,14 @@ public class Main
 
     public static void Initialize()
     {
-        Debug.println("   _____                    ____        _ _            \n" +
+        System.out.println("   _____                    ____        _ _            \n" +
                 "  / ____|                  / __ \\      | (_)           \n" +
                 " | |  __ _ __ _____      _| |  | |_ __ | |_ _ __   ___ \n" +
                 " | | |_ | '__/ _ \\ \\ /\\ / / |  | | '_ \\| | | '_ \\ / _ \\\n" +
                 " | |__| | | | (_) \\ V  V /| |__| | | | | | | | | |  __/\n" +
                 "  \\_____|_|  \\___/ \\_/\\_/  \\____/|_| |_|_|_|_| |_|\\___|\n" +
                 "                                                       ");
-        System.out.println("Initialisation des entrées/sorties");
+        Debug.println("Initialisation des entrées/sorties");
         System_Function.exec("gpio mode "+var.lamp.getPin()+" out");
         System_Function.exec("gpio mode "+var.fan.getPin()+" out");
         System_Function.exec("gpio mode "+var.pump.getPin()+" out");
