@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +32,29 @@ public class Main
                 " | |__| | | | (_) \\ V  V /| |__| | | | | | | | | |  __/\n" +
                 "  \\_____|_|  \\___/ \\_/\\_/  \\____/|_| |_|_|_|_| |_|\\___|\n" +
                 "                                                       ");
+
+        System.out.println("Récupération de la config");
+        try{
+            InputStream ips=new FileInputStream("/var/www/api/config.php");
+            InputStreamReader ipsr=new InputStreamReader(ips);
+            BufferedReader br=new BufferedReader(ipsr);
+            String line;
+            while ((line=br.readLine())!=null){
+                if(line.contains("configHostBdd")){var.db_host=line.split("\"")[1];}
+                if(line.contains("configNameBdd")){var.db_name=line.split("\"")[1];}
+                if(line.contains("configUserBdd")){var.db_username=line.split("\"")[1];}
+                if(line.contains("configPassBdd")){var.db_psswd=line.split("\"")[1];}
+                if(line.contains("lampPin")){var.lamp=new Component(Integer.parseInt(line.split("=")[1].replace(";","")));}
+                if(line.contains("fanPin")){var.fan=new Component(Integer.parseInt(line.split("=")[1].replace(";","")));}
+                if(line.contains("pumpPin")){var.pump=new Component(Integer.parseInt(line.split("=")[1].replace(";","")));}
+                if(line.contains("heaterPin")){var.heater=new Component(Integer.parseInt(line.split("=")[1].replace(";","")));}
+                if(line.contains("foggerPin")){var.fogger=new Component(Integer.parseInt(line.split("=")[1].replace(";","")));}
+            }
+            br.close();
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
         Debug.println("Initialisation des entrées/sorties");
         System_Function.exec("gpio mode "+var.lamp.getPin()+" out");
         System_Function.exec("gpio mode "+var.fan.getPin()+" out");

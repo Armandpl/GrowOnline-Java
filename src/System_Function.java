@@ -12,9 +12,9 @@ public class System_Function
 {
     public static String getCurrentProfile()
     {
-        String url = "jdbc:mysql://localhost/growonline";
-        String login = credentials.bdd_login;
-        String passwd = credentials.bdd_psswd;
+        String url = "jdbc:mysql://"+var.db_host+"/"+var.db_name;
+        String login = var.db_username;
+        String passwd = var.db_psswd;
         Connection cn=null;
 
         Statement stmt = null;
@@ -42,9 +42,9 @@ public class System_Function
     }
     public static void getProfile()
     {
-        String url = "jdbc:mysql://localhost/growonline";
-        String login = credentials.bdd_login;
-        String passwd = credentials.bdd_psswd;
+        String url = "jdbc:mysql://"+var.db_host+"/"+var.db_name;
+        String login = var.db_username;
+        String passwd = var.db_psswd;
         Connection cn=null;
 
         Statement stmt = null;

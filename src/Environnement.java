@@ -29,9 +29,9 @@ public class Environnement
   }
   public static void writeTempHum()//fonction pour écrire la température et l'humidité dans la DB
   {
-      String url = "jdbc:mysql://localhost/growonline";
-      String login = credentials.bdd_login;
-      String passwd = credentials.bdd_psswd;
+      String url = "jdbc:mysql://"+var.db_host+"/"+var.db_name;
+      String login = var.db_username;
+      String passwd = var.db_psswd;
       Connection cn=null;
       Statement st=null;
 
@@ -51,7 +51,7 @@ public class Environnement
           Class.forName("com.mysql.jdbc.Driver");
           cn= DriverManager.getConnection(url,login,passwd);
           st=cn.createStatement();
-          String sql = "INSERT INTO `growonline`.`env` (`date_`, `temp`, `hum`) VALUES ('"+System_Function.getDATETIME()+"', '"+result[0]+"', '"+result[1]+"');";
+          String sql = "INSERT INTO `"+var.db_name+"`.`env` (`date_`, `temp`, `hum`) VALUES ('"+System_Function.getDATETIME()+"', '"+result[0]+"', '"+result[1]+"');";
           st.execute(sql);
       } catch (SQLException e) {
           e.printStackTrace();
