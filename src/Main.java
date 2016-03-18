@@ -46,7 +46,7 @@ public class Main
     {
         Debug.println("Récuperation du profil selectionné");
         System_Function.getProfile();
-        if(Status.Name.equals("")|| Status.Name==null)
+        if(Status.Name==null||System_Function.getCurrentProfile().equals(""))
         {
             Debug.println("Aucun profil choisi, abandon du tick");
             return;
