@@ -10,7 +10,7 @@ public class Component
   
   public void set(boolean state)
   {
-    System_Function.exec("gpio write " + this.Pin + (state ? " 0" : " 1"));//0 pour allumé, 1 pour éteint car les relais sont en mode normalement ouvert
+    System_Function.exec("/home/wiringPi/gpio/gpio write " + this.Pin + (state ? " 0" : " 1"));//0 pour allumé, 1 pour éteint car les relais sont en mode normalement ouvert
     this.State = state;
   }
   
@@ -21,6 +21,6 @@ public class Component
   
   public boolean getState()
   {
-      return System_Function.exec_result("gpio read "+this.Pin).contains("0");
+      return System_Function.exec_result("/home/wiringPi/gpio/gpio read "+this.Pin).contains("0");
   }
 }

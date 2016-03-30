@@ -14,7 +14,6 @@ public class Main implements Daemon
 {
     private Thread GOThread;
     private boolean stopped = false;
-    private boolean lastOneWasATick = false;
 
     @Override
     public void init(DaemonContext daemonContext) throws DaemonInitException, Exception {
@@ -98,12 +97,12 @@ public class Main implements Daemon
             System.out.println(e.toString());
         }
         Debug.println("Initialisation des entrées/sorties");
-        System_Function.exec("gpio mode "+var.lamp.getPin()+" out");
-        System_Function.exec("gpio mode "+var.fan.getPin()+" out");
-        System_Function.exec("gpio mode "+var.pump.getPin()+" out");
-        System_Function.exec("gpio mode "+var.heater.getPin()+" out");
+        System_Function.exec("/home/wiringPi/gpio/gpio mode "+var.lamp.getPin()+" out");
+        System_Function.exec("/home/wiringPi/gpio/gpio mode "+var.fan.getPin()+" out");
+        System_Function.exec("/home/wiringPi/gpio/gpio mode "+var.pump.getPin()+" out");
+        System_Function.exec("/home/wiringPi/gpio/gpio mode "+var.heater.getPin()+" out");
         //System_Function.exec("gpio mode "+var.sonde+" in");//]______trucs un peut spécial avec les pins
-        System_Function.exec("gpio mode 7 in");            // ]
+        System_Function.exec("/home/wiringPi/gpio/gpio mode 7 in");            // ]
         var.lamp.set(false);
         var.fan.set(false);
         var.pump.set(false);

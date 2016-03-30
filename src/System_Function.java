@@ -168,7 +168,7 @@ public class System_Function
         SimpleDateFormat formater = new SimpleDateFormat("yyyy");
         String annee=formater.format(now);
         formater = new SimpleDateFormat("MM");
-        String month=""+(Integer.parseInt(formater.format(now))-1);//pour pallier au décalage crée par le fait que l'on compte soit à partir de 0 soit à partir de 1
+        String month=formater.format(now);//pour pallier au décalage crée par le fait que l'on compte soit à partir de 0 soit à partir de 1
         formater = new SimpleDateFormat("-dd HH:mm:ss");
 
         return annee+"-"+month+formater.format(now);
