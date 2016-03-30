@@ -1,3 +1,7 @@
+import org.apache.commons.daemon.Daemon;
+import org.apache.commons.daemon.DaemonContext;
+import org.apache.commons.daemon.DaemonInitException;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -6,22 +10,60 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Main
+public class Main implements Daemon
 {
-    public static void main(String[] args)
-    {
-        Initialize();
-        int frequency = 5000;//le temps entre chaque tick
-        long lastExec=0;//dernier éxécution de la fonction tick
-        while(true)
+    private Thread GOThread;
+    private boolean stopped = false;
+    private boolean lastOneWasATick = false;
+
+    @Override
+    public void init(DaemonContext daemonContext) throws DaemonInitException, Exception {
+
+        String[] args = daemonContext.getArguments();
+
+        GOThread = new Thread()
         {
-            if(lastExec+frequency<=System.currentTimeMillis())
+            private long lastTick = 0;
+
+            @Override
+            public synchronized void start()
             {
-                tick();
-                lastExec=System.currentTimeMillis();
+                Main.this.stopped = false;
+                super.start();
             }
-        }
+
+            @Override
+            public void run()
+            {
+                Initialize();
+                while(!stopped)
+                {
+                    long now = System.currentTimeMillis();
+                    if(now - lastTick >= 5000){
+                        tick();
+                        lastTick = now;
+                    }
+                }
+            }
+        };
     }
+
+    @Override
+    public void start() throws Exception {
+        GOThread.start();}
+
+    @Override
+    public void stop() throws Exception
+    {
+        stopped = true;
+        try
+        {
+            GOThread.join(1000);
+        }catch(InterruptedException e){Debug.println(e.getMessage());throw e;}
+    }
+
+    @Override
+    public void destroy() {GOThread = null;}
 
     public static void Initialize()
     {
@@ -98,12 +140,12 @@ public class Main
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         try {now = format.parse(format.format(now));} catch (ParseException e) {e.printStackTrace();}//on récupère uniquement les heures et les minutes
-        if(Status.Water_Amount!=0&&!var.pump.getState()&&System_Function.isWaterDay()&&now.after(Status.Watering_Hour)&&now.before(new Date(Status.Watering_Hour.getTime()+(long)(Status.Water_Amount/ Status.Pump_Flow*60000))))
+        if(Status.Water_Amount!=0&&System_Function.isWaterDay()&&now.after(Status.Watering_Hour)&&now.before(new Date(Status.Watering_Hour.getTime()+(long)(Status.Water_Amount/Status.Pump_Flow*60000))))
         {
             Debug.println("Arrosage en cours");
-            var.pump.set(true);
+            if(!var.pump.getState()){var.pump.set(true);}
         }
-        else {var.pump.set(false);}
+        else {if(var.pump.getState()){var.pump.set(false);Debug.println("Fin de l'arrosage");}}
 
         /////////////////////////////////////////////////
         //REGULATION DE LA TEMPERATURE
