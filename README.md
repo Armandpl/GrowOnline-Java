@@ -1,5 +1,5 @@
 # GrowOnline
-[This tutorial is a work in progress, you can expect it to be finished by the end of the next week]
+[This tutorial is a work in progress, you can expect it to be finished by the end of next week]
 
 First of all, if you don't know what is GrowOnline, go check out our [website](http://growonline.fr).
 
@@ -87,4 +87,4 @@ Finally, install jsvc, it will let our java program act as a deamon
 `sudo apt-get install jsvc`
 
 #### The Web Interface
-Now that your raspberry pi is set and all the dependencies installed, 
+Now that your raspberry pi is set and all the dependencies installed,
