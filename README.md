@@ -1,7 +1,7 @@
 # GrowOnline
 [This tutorial is a work in progress, you can expect it to be finished by the end of next week]
 
-First of all, if you don't know what is GrowOnline, go check out our [website](http://growonline.fr).
+First of all, if you don't know what GrowOnline is, go check out our [website](http://growonline.fr).
 
 ## Hardware
 Now that you know what you're going to make you'll need some stuff:
@@ -13,7 +13,7 @@ Now that you know what you're going to make you'll need some stuff:
 - An USB wifi dongle
 - some wires, a blade, a soldering iron, screws, bolts, a screwdriver, a drill..
 
-Then, you'll want to wire the system like that:
+Then, you want to wire the system like that:
 ![wiring diagramm](https://github.com/NitroOxyde/GrowOnline-Java/blob/master/GrowOnline_bb.png)
 
 At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
