@@ -108,6 +108,7 @@ public class Main implements Daemon
         var.pump.set(false);
         var.heater.set(false);
         Environnement.startThread();//on démarre l'écriture de la température et de l'humidité dans la bdd
+        SMS.startThread();//On démarre le service qui vérifiera la temperature et l'humidité et enverra des sms si il y a un problème ( 27°C au lieu de 25 par exemple )
     }
 
     public static void tick()//fonction qui gèrera tout et qui sera éxécutée toute les x secondes
