@@ -8,14 +8,14 @@ Now that you know what you're going to make you'll need some stuff:
 - a 6 relays board
 - a DHT22 sensor
 - 6 outlets
-- 220V to 5V or 120V to 5V adapter (capable of providing 1A)!
+- 220V to 5V or 120V to 5V adapter (capable of providing 1A)
 - An USB wifi dongle
 - some wires, a blade, a soldering iron, screws, bolts, a screwdriver, a drill..
 
 Then, you want to wire the system like that:
-![]({{site.baseurl}}//GrowOnline_bb.png)
+![]({{site.baseurl}}/GrowOnline_bb.png)
 
-At this you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
+At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
 
 After building this, you'll need to install the software.
 
