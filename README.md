@@ -13,7 +13,7 @@ Now that you know what you're going to make you'll need some stuff:
 - some wires, a blade, a soldering iron, screws, bolts, a screwdriver, a drill..
 
 Then, you want to wire the system like that:
-![]({{site.baseurl}}/GrowOnline_bb.png)
+![wiring diagramm](https://github.com/NitroOxyde/GrowOnline-Java/blob/master/GrowOnline_bb.png)
 
 At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
 
