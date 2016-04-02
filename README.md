@@ -1,5 +1,6 @@
 # GrowOnline
 [This tutorial is a work in progress, you can expect it to be finished by the end of the next week]
+
 First of all, if you don't know what is GrowOnline, go check out our [website](http://growonline.fr).
 
 ## Hardware
@@ -12,7 +13,7 @@ Now that you know what you're going to make you'll need some stuff:
 - An USB wifi dongle
 - some wires, a blade, a soldering iron, screws, bolts, a screwdriver, a drill..
 
-Then, you want to wire the system like that:
+Then, you'll want to wire the system like that:
 ![wiring diagramm](https://github.com/NitroOxyde/GrowOnline-Java/blob/master/GrowOnline_bb.png)
 
 At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
@@ -20,15 +21,28 @@ At this point you may be a bit confused on how to put this all together, so we'v
 After building this, you'll need to install the software.
 
 ## Software
-Start with installing raspbian on your raspberry.
+Start with installing **raspbian** on your raspberry.
+#### Raspberry Pi Configuration
 
-Then connect to the raspberry pi via ssh and type:`raspi-config`
+Connect to the raspberry pi via ssh and type `raspi-config`
 
-Select expand filesystem, then finish and finally reboot:`sudo reboot`
+Select **expand filesystem**, then **finish** and finally **reboot** `sudo reboot`
 
-Make sure your raspberry pi is on time:`sudo dpkg-reconfigure tzdata`
+Now, plug-in your wifi dongle and configure the wifi by editing wpa_supplicant.conf
 
-Change your root password:`sudo passwd root`
+ `sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
+
+Add these lines:
+```
+network={
+    ssid="Your_SSID"
+    psk="Your_wifi_password"
+}
+```
+
+Then, make sure your raspberry pi is on time `sudo dpkg-reconfigure tzdata`
+
+Change your root password `sudo passwd root`
 
 Update the raspberry pi:
 
@@ -36,10 +50,10 @@ Update the raspberry pi:
 
 `sudo apt-get upgrade`
 
+#### Dependencies
+First, install git `sudo apt-get install git-core`
 
-Install git:`sudo apt-get install git-core`
-
-Install wiring pi, this will enable us to control the relays
+Then, install wiring pi, this will enable us to control the relays
 
 `cd /home`
 
@@ -51,11 +65,11 @@ Install wiring pi, this will enable us to control the relays
 
 `sudo ./build`
 
-Install the web server:`sudo apt-get install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql`
+Now, install the web server `sudo apt-get install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql`
 
 You will be asked to type a password for the database, write it down or remember it.
 
-Install the DHT22 library:
+To read the temperature and the humidity from the sensor, we'll need to install the DHT22 library
 
 `cd /home`
 
@@ -67,8 +81,10 @@ Install the DHT22 library:
 
 `make`
 
-`sudo ./loldht`
+Make sure you can read data from the probe by typing `sudo ./loldht`
 
-
-Install jsvc, it will let our java program act as a deamon:
+Finally, install jsvc, it will let our java program act as a deamon
 `sudo apt-get install jsvc`
+
+#### The Web Interface
+Now that your raspberry pi is set and all the dependencies installed, 
