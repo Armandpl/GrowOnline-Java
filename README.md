@@ -72,11 +72,3 @@ Install the DHT22 library:
 
 Install jsvc, it will let our java program act as a deamon:
 `sudo apt-get install jsvc`
-
-
-
-
-
-
-
-
