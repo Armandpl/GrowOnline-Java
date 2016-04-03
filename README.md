@@ -87,4 +87,12 @@ Finally, install jsvc, it will let our java program act as a deamon
 `sudo apt-get install jsvc`
 
 #### The Web Interface
-Now that your raspberry pi is set and all the dependencies installed,
+Now that your raspberry pi is set and all the dependencies installed, you need the web interface.
+
+`cd /var/www`
+
+`sudo git clone https://github.com/NitroOxyde/GrowOnline-Web-Interface .`
+
+Then edit the config file to match your database password and login. 
+
+`sudo nano /api/config.php`
