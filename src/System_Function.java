@@ -91,7 +91,7 @@ public class System_Function
     {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        try {now = format.parse(format.format(now));} catch (ParseException e) {e.printStackTrace();}//on rÃ©cupÃ¨re uniquement les heures et les minutes
+        try {now = format.parse(format.format(now));} catch (ParseException e) {e.printStackTrace();}//on récupère uniquement les heures et les minutes
         if(Status.Sunrise== Status.Sunset){return false;}
         return now.after(Status.Sunrise)&&now.before(Status.Sunset);
     }
@@ -150,7 +150,7 @@ public class System_Function
 
         formater = new SimpleDateFormat("HH:mm:ss");
         Date now = new Date();
-        try {now = formater.parse(formater.format(now));} catch (ParseException e) {e.printStackTrace();}//on rÃ©cupÃ¨re uniquement les heures et les minutes et les secondes
+        try {now = formater.parse(formater.format(now));} catch (ParseException e) {e.printStackTrace();}//on récupère uniquement les heures et les minutes et les secondes
         for (int i=0; i<ON.size()-1;i++)
         {
             if( now.after(ON.get(i)) && now.before(OFF.get(i)) )
@@ -168,7 +168,7 @@ public class System_Function
         SimpleDateFormat formater = new SimpleDateFormat("yyyy");
         String annee=formater.format(now);
         formater = new SimpleDateFormat("MM");
-        String month=formater.format(now);//pour pallier au dÃ©calage crÃ©e par le fait que l'on compte soit Ã  partir de 0 soit Ã  partir de 1
+        String month=formater.format(now);//pour pallier au décalage crée par le fait que l'on compte soit à partir de 0 soit à partir de 1
         formater = new SimpleDateFormat("-dd HH:mm:ss");
 
         return annee+"-"+month+formater.format(now);
@@ -239,6 +239,36 @@ public class System_Function
         return "";
     }
 
+    public static boolean checkDBExists(String dbName){
+
+        String url = "jdbc:mysql://"+var.db_host;
+        String login = var.db_username;
+        String passwd = var.db_psswd;
+        Connection cn=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            cn = DriverManager.getConnection(url, login, passwd); //Open a connection
+
+            ResultSet resultSet = cn.getMetaData().getCatalogs();
+
+            while (resultSet.next()) {
+
+                String databaseName = resultSet.getString(1);
+                if(databaseName.equals(dbName)){
+                    return true;
+                }
+            }
+            resultSet.close();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public static void exec(String command)
     {
         try
@@ -250,6 +280,151 @@ public class System_Function
         catch (Exception e)
         {
             Debug.println("erreur d'execution " + command + e.toString());
+        }
+    }
+
+    public static void createDB()
+    {
+        String url = "jdbc:mysql://"+var.db_host;
+        String login = var.db_username;
+        String passwd = var.db_psswd;
+        Connection cn=null;
+        Statement st;
+
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            cn= DriverManager.getConnection(url,login,passwd);
+            st=cn.createStatement();
+            String sql = "-- phpMyAdmin SQL Dump\n" +
+                    "-- version 3.4.11.1deb2+deb7u2\n" +
+                    "-- http://www.phpmyadmin.net\n" +
+                    "--\n" +
+                    "-- Client: localhost\n" +
+                    "-- Généré le: Mar 12 Juillet 2016 à 01:08\n" +
+                    "-- Version du serveur: 5.5.47\n" +
+                    "-- Version de PHP: 5.4.45-0+deb7u2\n" +
+                    "\n" +
+                    "SET SQL_MODE=\"NO_AUTO_VALUE_ON_ZERO\";\n" +
+                    "SET time_zone = \"+00:00\";\n" +
+                    "\n" +
+                    "\n" +
+                    "/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n" +
+                    "/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n" +
+                    "/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n" +
+                    "/*!40101 SET NAMES utf8 */;\n" +
+                    "\n" +
+                    "--\n" +
+                    "-- Base de données: `growonline`\n" +
+                    "--\n" +
+                    "\n" +
+                    "CREATE DATABASE `growonline` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;\n" +
+                    "USE `growonline`;"+
+                    "-- --------------------------------------------------------\n" +
+                    "\n" +
+                    "--\n" +
+                    "-- Structure de la table `env`\n" +
+                    "--\n" +
+                    "\n" +
+                    "CREATE TABLE IF NOT EXISTS `env` (\n" +
+                    "  `Date_` datetime NOT NULL,\n" +
+                    "  `Temp` double NOT NULL,\n" +
+                    "  `Hum` double NOT NULL\n" +
+                    ") ENGINE=InnoDB DEFAULT CHARSET=latin1;\n" +
+                    "\n" +
+                    "-- --------------------------------------------------------\n" +
+                    "\n" +
+                    "--\n" +
+                    "-- Structure de la table `profile`\n" +
+                    "--\n" +
+                    "\n" +
+                    "CREATE TABLE IF NOT EXISTS `profile` (\n" +
+                    "  `ID` int(11) NOT NULL,\n" +
+                    "  `Name` text NOT NULL,\n" +
+                    "  `hook` text NOT NULL,\n" +
+                    "  PRIMARY KEY (`ID`)\n" +
+                    ") ENGINE=InnoDB DEFAULT CHARSET=latin1;\n" +
+                    "\n" +
+                    "--\n" +
+                    "-- Contenu de la table `profile`\n" +
+                    "--\n" +
+                    "\n" +
+                    "INSERT INTO `profile` (`ID`, `Name`, `hook`) VALUES\n" +
+                    "(0, '', 'hook');\n" +
+                    "\n" +
+                    "-- --------------------------------------------------------\n" +
+                    "\n" +
+                    "--\n" +
+                    "-- Structure de la table `profiles`\n" +
+                    "--\n" +
+                    "\n" +
+                    "CREATE TABLE IF NOT EXISTS `profiles` (\n" +
+                    "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  `Name` text NOT NULL,\n" +
+                    "  `Description` text NOT NULL,\n" +
+                    "  `Sunrise` time NOT NULL,\n" +
+                    "  `Sunset` time NOT NULL,\n" +
+                    "  `Interval` time NOT NULL,\n" +
+                    "  `Working_Time` time NOT NULL,\n" +
+                    "  `Tank_Capacity` double NOT NULL,\n" +
+                    "  `Pump_Flow` double NOT NULL,\n" +
+                    "  `Watering_Hour` time NOT NULL,\n" +
+                    "  `Water_Amount` double NOT NULL,\n" +
+                    "  `Temperature` double NOT NULL,\n" +
+                    "  `Humidity` double NOT NULL,\n" +
+                    "  `Monday` tinyint(1) NOT NULL,\n" +
+                    "  `Tuesday` tinyint(1) NOT NULL,\n" +
+                    "  `Wednesday` tinyint(1) NOT NULL,\n" +
+                    "  `Thursday` tinyint(1) NOT NULL,\n" +
+                    "  `Friday` tinyint(1) NOT NULL,\n" +
+                    "  `Saturday` tinyint(1) NOT NULL,\n" +
+                    "  `Sunday` tinyint(1) NOT NULL,\n" +
+                    "  PRIMARY KEY (`id`)\n" +
+                    ") ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;\n" +
+                    "\n" +
+                    "-- --------------------------------------------------------\n" +
+                    "\n" +
+                    "--\n" +
+                    "-- Structure de la table `users`\n" +
+                    "--\n" +
+                    "\n" +
+                    "CREATE TABLE IF NOT EXISTS `users` (\n" +
+                    "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  `login` text NOT NULL,\n" +
+                    "  `hash` text NOT NULL,\n" +
+                    "  `email` text NOT NULL,\n" +
+                    "  `mobile` text NOT NULL,\n" +
+                    "  `alertemail` tinyint(1) NOT NULL,\n" +
+                    "  `alertsms` tinyint(1) NOT NULL,\n" +
+                    "  `admin` tinyint(1) NOT NULL,\n" +
+                    "  `apikey` text NOT NULL,\n" +
+                    "  `avatar` text NOT NULL,\n" +
+                    "  PRIMARY KEY (`id`)\n" +
+                    ") ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;\n" +
+                    "\n" +
+                    "/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n" +
+                    "/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n" +
+                    "/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n";
+            String[] commands = sql.split(";");
+
+            try {
+                for (String s : commands) {
+                    st.execute(s);
+                }
+            } catch (Exception ex) {
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if ( cn != null )
+                try {
+            /* Fermeture de la connexion */
+                    cn.close();
+                } catch ( SQLException ignore ) {
+            /* Si une erreur survient lors de la fermeture, il suffit de l'ignorer. */
+                }
         }
     }
 }

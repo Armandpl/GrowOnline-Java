@@ -107,6 +107,11 @@ public class Main implements Daemon
         var.fan.set(false);
         var.pump.set(false);
         var.heater.set(false);
+        if(!System_Function.checkDBExists(var.db_name))//si la BDD existe pas on la crée
+        {
+            Debug.println("BDD inexistante, création");
+            System_Function.createDB();
+        }
         Environnement.startThread();//on démarre l'écriture de la température et de l'humidité dans la bdd
         SMS.startThread();//On démarre le service qui vérifiera la temperature et l'humidité et enverra des sms si il y a un problème ( 27°C au lieu de 25 par exemple )
     }
