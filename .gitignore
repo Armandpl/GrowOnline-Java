@@ -2,3 +2,4 @@ credentials.java
 GrowOnline-Java.iml
 .idea/
 out/
+*.jar
