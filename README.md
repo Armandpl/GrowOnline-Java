@@ -28,7 +28,7 @@ Connect to the raspberry pi via ssh and type `sudo passwd root` to set your root
 
 Then type `sudo raspi-config`
 
-Select **expand filesystem**, then **finish** and finally **reboot** `sudo reboot`
+Select **expand filesystem**, then **finish** and finally **reboot**
 
 Log in as root
 
