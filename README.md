@@ -24,9 +24,13 @@ After building this, you'll need to install the software.
 Start with installing **raspbian** on your raspberry.
 #### Raspberry Pi Configuration
 
-Connect to the raspberry pi via ssh and type `raspi-config`
+Connect to the raspberry pi via ssh and type `sudo passwd root` to set your root password
+
+Then type `sudo raspi-config`
 
 Select **expand filesystem**, then **finish** and finally **reboot** `sudo reboot`
+
+Log in as root
 
 Now, plug-in your wifi dongle and configure the wifi by editing wpa_supplicant.conf
 
@@ -41,8 +45,6 @@ network={
 ```
 
 Then, make sure your raspberry pi is on time `sudo dpkg-reconfigure tzdata`
-
-Change your root password `sudo passwd root`
 
 Update the raspberry pi:
 
