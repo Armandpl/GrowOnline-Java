@@ -95,7 +95,7 @@ Now that your raspberry pi is set and all the dependencies installed, you need t
 
 Then edit the config file to match your database login and password. (The one you had to remember)
 
-`sudo nano /api/config.php`
+`sudo nano api/config.php`
 
 #### The Java Deamon
 Now, you need the java deamon to control all your physical equipment (lamp, fan, pump...)
