@@ -77,7 +77,7 @@ To read the temperature and the humidity from the sensor, we'll need to install 
 
 `sudo ./configure`
 
-`make`
+`sudo make`
 
 Make sure you can read data from the probe by typing `sudo ./loldht`
 
