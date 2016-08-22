@@ -91,6 +91,8 @@ Now that your raspberry pi is set and all the dependencies installed, you need t
 
 `cd /var/www`
 
+`sudo rm -r html`
+
 `sudo git clone https://github.com/NitroOxyde/GrowOnline-Web-Interface .`
 
 Then edit the config file to match your database password and login. 
