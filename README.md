@@ -81,9 +81,6 @@ To read the temperature and the humidity from the sensor, we'll need to install 
 
 Make sure you can read data from the probe by typing `sudo ./loldht`
 
-Finally, install jsvc, it will let our java program act as a deamon
-`sudo apt-get install jsvc`
-
 #### The Web Interface
 Now that your raspberry pi is set and all the dependencies installed, you need the Web Interface.
 
@@ -99,6 +96,12 @@ Then edit the config file to match your database login and password. (The one yo
 
 #### The Java Deamon
 Now, you need the java deamon to control all your physical equipment (lamp, fan, pump...)
+
+First, install jsvc, it will let our java program act as a deamon 
+
+`sudo apt-get install jsvc`
+
+Then download the deamon and the script to launch it
 
 `cd /home`
 
