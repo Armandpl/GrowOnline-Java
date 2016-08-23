@@ -103,7 +103,7 @@ First, install jsvc, it will let our java program act as a deamon
 
 `sudo apt-get install jsvc`
 
-Then download the deamon and the script to launch it
+Then download the deamon
 
 `cd /home`
 
@@ -113,6 +113,8 @@ Then download the deamon and the script to launch it
 
 `sudo mkdir /home/log`
 
+Now download the script to launch the deamon
+
 `cd /etc/init.d`
 
 `sudo wget http://growonline.fr/growonline`
@@ -121,4 +123,8 @@ Then download the deamon and the script to launch it
 
 `sudo update-rc.d growonline defaults`
 
-`sudo reboot`
+`sudo /etc/init.d/growonline start`
+
+## You are done !
+
+Connect to your raspberry pi through your web browser and follow the instructions !
