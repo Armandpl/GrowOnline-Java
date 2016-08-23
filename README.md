@@ -1,9 +1,8 @@
 # GrowOnline
-[This tutorial is a work in progress, you can expect it to be finished by the end of next week]
 
 First of all, if you don't know what GrowOnline is, go check out our [website](http://growonline.fr).
 
-## Hardware
+# Hardware
 Now that you know what you're going to make you'll need some stuff:
 - a raspberry pi (all versions should work)
 - a 6 relays board
@@ -16,17 +15,19 @@ Now that you know what you're going to make you'll need some stuff:
 Then, you want to wire the system like that:
 ![wiring diagramm](https://github.com/NitroOxyde/GrowOnline-Java/blob/master/GrowOnline_bb.png)
 
-[écrire à quels pins sont connectés les trucs]
+You have to connect the probe data wire to GPIO 4.
+By default the lamp relay is connected to GPIO 5, the fan to GPIO 4, the pump to GPIO 3, the heater to GPIO 2 and the fogger to GPIO 1.
 
 At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
 
 After building this, you'll need to install the software.
 
-## Software
+# Software
 Start with installing **raspbian** on your raspberry.
-#### Raspberry Pi Configuration
 
-Connect to the raspberry pi via ssh and type `sudo raspi-config`
+Then connect to the raspberry pi via ssh and type 
+
+`sudo raspi-config`
 
 Select **expand filesystem**, then **finish** and finally **reboot**
 
@@ -42,11 +43,24 @@ network={
 }
 ```
 
-Then, make sure your raspberry pi is on time 
+## Quick Install
+
+First make sure you have root acces
+
+`sudo su`
+
+Then, run this command 
+
+`dpkg-reconfigure tzdata && apt-get --assume-yes update && apt-get --assume-yes upgrade && apt-get --assume-yes install git-core && cd /home && git clone git://git.drogon.net/wiringPi && cd wiringPi && git pull origin && ./build && apt-get --assume-yes install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql && cd /home && git clone https://github.com/technion/lol_dht22 && cd lol_dht22 && ./configure && make && cd /var/www/html && rm -rf * && git clone https://github.com/NitroOxyde/GrowOnline-Web-Interface . && sudo nano api/config.php && apt-get --assume-yes install jsvc && cd /home && wget http://growonline.fr/GrowOnline-Java.jar && mkdir /home/err && mkdir /home/log && cd /etc/init.d && wget http://growonline.fr/growonline && chmod 755 /etc/init.d/growonline && update-rc.d growonline defaults && reboot`
+
+
+### Detailed Install
+
+First, make sure your raspberry pi is on time 
 
 `sudo dpkg-reconfigure tzdata`
 
-Update the raspberry pi:
+Update it:
 
 `sudo apt-get update`
 
