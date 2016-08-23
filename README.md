@@ -16,6 +16,8 @@ Now that you know what you're going to make you'll need some stuff:
 Then, you want to wire the system like that:
 ![wiring diagramm](https://github.com/NitroOxyde/GrowOnline-Java/blob/master/GrowOnline_bb.png)
 
+[écrire à quels pins sont connectés les trucs]
+
 At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
 
 After building this, you'll need to install the software.
