@@ -54,6 +54,12 @@ Then, run this command
 
 `dpkg-reconfigure tzdata && apt-get --assume-yes update && apt-get --assume-yes upgrade && apt-get --assume-yes install git-core && cd /home && git clone git://git.drogon.net/wiringPi && cd wiringPi && git pull origin && ./build && apt-get --assume-yes install apache2 php5 mysql-server libapache2-mod-php5 php5-mysql && cd /home && git clone https://github.com/technion/lol_dht22 && cd lol_dht22 && ./configure && make && cd /var/www/html && rm -rf * && git clone https://github.com/NitroOxyde/GrowOnline-Web-Interface . && sudo nano api/config.php && apt-get --assume-yes install jsvc && cd /home && wget http://growonline.fr/GrowOnline-Java.jar && mkdir /home/err && mkdir /home/log && cd /etc/init.d && wget http://growonline.fr/growonline && chmod 755 /etc/init.d/growonline && update-rc.d growonline defaults && reboot`
 
+During the install you'll be prompted to select your timezone, then you'll have to choose a password for mysql.
+Then a file will open and you'll have to replace `$configPassBdd="root";` by `$configPassBdd="yourMysqlPassword";`. Save the file by pressing `ctrl + x`, then `y` and finally `enter`.
+
+Now the wait a little bit and the Pi should reboot.
+
+[Your are done !](#you-are-done-!)
 
 ### Detailed Install
 
