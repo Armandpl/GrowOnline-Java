@@ -42,7 +42,9 @@ network={
 }
 ```
 
-Then, make sure your raspberry pi is on time `sudo dpkg-reconfigure tzdata`
+Then, make sure your raspberry pi is on time 
+
+`sudo dpkg-reconfigure tzdata`
 
 Update the raspberry pi:
 
