@@ -1,6 +1,6 @@
 # GrowOnline
 
-First of all, if you don't know what GrowOnline is, go check out our [website](http://growonline.fr).
+First of all, if you don't know what GrowOnline is, go check out our [website](http://growonline.fr) :).
 
 # Hardware
 Now that you know what you're going to make you'll need some stuff:
