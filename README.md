@@ -16,7 +16,8 @@ Then, you want to wire the system like that:
 ![wiring diagramm](https://github.com/NitroOxyde/GrowOnline-Java/blob/master/GrowOnline_bb.png)
 
 You have to connect the probe data wire to GPIO 4.
-By default the lamp relay is connected to GPIO 5, the fan to GPIO 4, the pump to GPIO 3, the heater to GPIO 2 and the fogger to GPIO 1.
+
+By default the lamp relay is connected to GPIO 5, the fan to GPIO 4, the pump to GPIO 3, the heater to GPIO 2 and the mist maker to GPIO 1.
 
 At this point you may be a bit confused on how to put this all together, so we've made a quick [video](https://vimeo.com/156953965) that should give you and idea of where to start.
 
